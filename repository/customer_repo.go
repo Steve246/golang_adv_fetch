@@ -51,6 +51,32 @@ func (c *customerRepository) Delete(id string) (err error) {
 	return
 }
 
+//bagian select
+
+func (c *customerRepository) GetAll(page int, totalRow int) ([]model.Customer, error) {
+	//rumus pagination
+	limit := totalRow
+	offset := limit * (page - 1) //batesin per page ad brp
+
+	//pengunaan fetch data: select($1), named querry {: column_name}, querry{}
+	customer := []model.Customer{}
+
+	if err := c.db.Select(&customer, utils.SELECT_ALL_CUSTOMER, limit, offset); err != nil {
+		return nil, err
+	}
+
+	return customer, nil
+
+}
+
+func (c *customerRepository) GetById(id string) (model.Customer, error) {
+	panic("implement me")
+}
+
+func (c *customerRepository) GetByName(name string) ([]model.Customer, error) {
+	panic("implement me")
+}
+
 func NewCustomerRepository(db *sqlx.DB) CustomerRepository {
 	cstRepo := new(customerRepository)
 	cstRepo.db = db

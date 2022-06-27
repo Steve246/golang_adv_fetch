@@ -2,9 +2,7 @@ package main
 
 import (
 	"enigmacamp.com/go-db-fundamnetal/config"
-	"enigmacamp.com/go-db-fundamnetal/model"
-	"enigmacamp.com/go-db-fundamnetal/repository"
-	"enigmacamp.com/go-db-fundamnetal/usecase"
+	"enigmacamp.com/go-db-fundamnetal/sample"
 	"enigmacamp.com/go-db-fundamnetal/utils"
 	"github.com/jmoiron/sqlx"
 )
@@ -35,18 +33,18 @@ func main() {
 
 	//INSERT PAKE SHOP
 
-	cstRepoShop := repository.NewShopRepository(db)
-	cstUseShop := usecase.NewShopUseCase(cstRepoShop)
+	// cstRepoShop := repository.NewShopRepository(db)
+	// cstUseShop := usecase.NewShopUseCase(cstRepoShop)
 
-	cstIdShop := utils.GenerateId()
-	shop := model.Shop{
-		Id:      cstIdShop,
-		No_siup: "57858558",
-		Name:    "Diganti Pen Pen",
-		Address: "Diganti Bandung",
-		Phone:   "0865544344",
-	}
-	cstUseShop.InsertShop(&shop)
+	// cstIdShop := utils.GenerateId()
+	// shop := model.Shop{
+	// 	Id:      cstIdShop,
+	// 	No_siup: "57858558",
+	// 	Name:    "Diganti Pen Pen",
+	// 	Address: "Diganti Bandung",
+	// 	Phone:   "0865544344",
+	// }
+	// cstUseShop.InsertShop(&shop)
 
 	// DELETE
 	// customerId := "C004"
@@ -78,4 +76,8 @@ func main() {
 	//UPDATE PAKE SHOP
 
 	// cstRepoShop.Update(&shop)
+
+	//Panggil Get
+
+	sample.CustomerRun(db)
 }

@@ -18,6 +18,14 @@ const (
 	DELETE_CUSTOMER_PS_HD = `delete from customer where id=$1`
 	DELETE_CUSTOMER_PS_SD = `update customer set is_status=0 where id=$1`
 
+	//Tambain bagian select
+
+	SELECT_CUSTOMER_BY_ID = `select id,name,address,phone,email,saldo from customer where id=$1`
+
+	SELECT_CUSTOMER_BY_NAME = `select id, name, address, phone, emailk, saldo from customer where name ilike $1`
+
+	SELECT_ALL_CUSTOMER = `select id, name, address, phone, email, saldo from customer order by created_at asc limit $1 offset $2`
+
 	//Ini bagian shop
 
 	INSERT_SHOP = `insert into shop 
@@ -29,5 +37,4 @@ const (
 	UPDATE_SHOP = `update shop set name=:name, no_siup=:no_siup, address=:address, phone=:phone where id=:id`
 
 	DELETE_SHOP_PS_HD = `delete from shop where id=$1`
-	// DELETE_SHOP_PS_SD = `update shop set is_status=0 where id=$1`
 )
