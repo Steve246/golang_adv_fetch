@@ -4,8 +4,11 @@ import (
 	"fmt"
 	"log"
 
+	"enigmacamp.com/go-db-fundamnetal/dto"
+	"enigmacamp.com/go-db-fundamnetal/model"
 	"enigmacamp.com/go-db-fundamnetal/repository"
 	"enigmacamp.com/go-db-fundamnetal/usecase"
+	"enigmacamp.com/go-db-fundamnetal/utils"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -93,4 +96,41 @@ func CustomerRun(db *sqlx.DB) {
 	// 	fmt.Println(row)
 	// }
 
+}
+
+func ProductRun(db *sqlx.DB) {
+	repo := repository.GetShopProduct(db)
+	useCase := usecase.FindShopWithProduct(repo)
+
+	product := model.Product{
+		Id:          utils.GenerateId(),
+		Name:        "Mouse",
+		Price:       200000,
+		Description: "Mouse Benda",
+		Stock:       20,
+		Shop: model.Shop{
+			Id: "7dc92174-82ad-41a0-98d8-44aa45552x13",
+		},
+	}
+
+	err := useCase.InsertNewProduct(&product)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+}
+
+func ShopRun(db *sqlx.DB) {
+	repo := repository.NewShopRepository(db)
+	useCase := usecase.NewShopUseCase(repo)
+
+	var shopWithproducts []dto.ShopProductDto
+	shopWithproducts, err := useCase.FindShopWithProduct(1, 10)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	for _, sp := range shopWithproducts {
+		fmt.Printf("%#v\n", sp)
+	}
 }

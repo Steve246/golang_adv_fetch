@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"enigmacamp.com/go-db-fundamnetal/dto"
 	"enigmacamp.com/go-db-fundamnetal/model"
 	"enigmacamp.com/go-db-fundamnetal/repository"
 )
@@ -9,10 +10,16 @@ type ShopUseCase interface {
 	InsertShop(customer *model.Shop) error
 	UpdateShop(customer *model.Shop) error
 	DeleteShop(id string) error
+	FindShopWithProduct(page int, totalRow int) ([]dto.ShopProductDto, error)
 }
 
 type shopUseCase struct {
 	repo repository.ShopRepository
+}
+
+func (c *shopUseCase) FindShopWithProduct(page int, totalRow int) ([]dto.ShopProductDto, error) {
+	return c.repo.GetShopProduct(page, totalRow)
+
 }
 
 func (c *shopUseCase) InsertShop(shop *model.Shop) error {

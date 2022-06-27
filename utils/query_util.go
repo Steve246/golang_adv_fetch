@@ -50,4 +50,9 @@ const (
 
 	SELECT_KOTA_TOTAL      = `select address, count(id) from customer group by address`
 	SELECT_BANYAK_CUSTOMER = `select is_status,count(id) as total from customer group by is_status`
+
+	//Join
+
+	SELECT_SHOP_WITH_PRODUCT = `select s.id,s.no_siup,s.name,p.id as product_id,p.name as product_name,p.price,p.stock from shop s join product p on s.id = p.store_id order by no_siup asc limit $1 offset $2
+	`
 )

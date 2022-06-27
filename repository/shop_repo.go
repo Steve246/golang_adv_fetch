@@ -3,6 +3,7 @@ package repository
 import (
 	"errors"
 
+	"enigmacamp.com/go-db-fundamnetal/dto"
 	"enigmacamp.com/go-db-fundamnetal/model"
 	"enigmacamp.com/go-db-fundamnetal/utils"
 	"github.com/jmoiron/sqlx"
@@ -12,10 +13,35 @@ type ShopRepository interface {
 	Insert(customer *model.Shop) error
 	Update(customer *model.Shop) error
 	Delete(id string) error
+	GetShopProduct(page int, totalRow int) ([]dto.ShopProductDto, error)
 }
 
 type shopRepository struct {
 	db *sqlx.DB
+}
+
+func (s *shopRepository) GetShopProduct(page int, totalRow int) ([]dto.ShopProductDto, error) {
+	limit := totalRow
+	offset := limit * (page - 1)
+
+	var shopProducts []dto.ShopProductDto
+
+	rows, err := s.db.Queryx(utils.SELECT_SHOP_WITH_PRODUCT, limit, offset)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var sp dto.ShopProductDto
+		err := rows.StructScan(&sp)
+		if err != nil {
+			return nil, err
+		}
+		shopProducts = append(shopProducts, sp)
+	}
+	return shopProducts, nil
+
 }
 
 func (c *shopRepository) Insert(shop *model.Shop) error {
