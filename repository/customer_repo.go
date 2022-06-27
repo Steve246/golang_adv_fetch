@@ -1,9 +1,10 @@
 package repository
 
 import (
+	"errors"
+
 	"enigmacamp.com/go-db-fundamnetal/model"
 	"enigmacamp.com/go-db-fundamnetal/utils"
-	"errors"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -11,6 +12,9 @@ type CustomerRepository interface {
 	Insert(customer *model.Customer) error
 	Update(customer *model.Customer) error
 	Delete(id string) error
+	GetAll(page int, totalRow int) ([]model.Customer, error)
+	GetById(id string) (model.Customer, error)
+	GetByName(name string) ([]model.Customer, error)
 }
 
 type customerRepository struct {
