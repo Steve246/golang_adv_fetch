@@ -13,11 +13,26 @@ type CustomerUseCase interface {
 	GetAll(page int, totalRow int) ([]model.Customer, error)
 	GetById(id string) (model.Customer, error)
 	GetByName(name string) ([]model.Customer, error)
+
+	GetTotalCustomerActive() (int, error) //count
+	GetTotalBalanceActive() (int, error)  //sum
 }
 
 type customerUseCase struct {
 	repo repository.CustomerRepository
 }
+
+//tambain get count dan get sum
+
+func (c *customerUseCase) GetTotalCustomerActive() (int, error) {
+	return c.repo.GetCount()
+}
+
+func (c *customerUseCase) GetTotalBalanceActive() (int, error) {
+	return c.repo.GetSum()
+}
+
+//tambain insert, delete, update
 
 func (c *customerUseCase) InsertCustomer(customer *model.Customer) error {
 	return c.repo.Insert(customer)

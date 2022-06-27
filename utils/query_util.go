@@ -26,6 +26,12 @@ const (
 
 	SELECT_ALL_CUSTOMER = `select id, name, address, phone, email, saldo from customer order by created_at asc limit $1 offset $2`
 
+	//tambain select customer
+
+	SELECT_COUNT_CUSTOMER = `select count(id) from customer where is_status=1`
+
+	SELECT_SUM_CUSTOMER = `select sum(saldo) from customer where is_status=1`
+
 	//Ini bagian shop
 
 	INSERT_SHOP = `insert into shop 

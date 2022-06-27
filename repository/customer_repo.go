@@ -15,6 +15,9 @@ type CustomerRepository interface {
 	GetAll(page int, totalRow int) ([]model.Customer, error)
 	GetById(id string) (model.Customer, error)
 	GetByName(name string) ([]model.Customer, error)
+
+	GetCount() (int, error)
+	GetSum() (int, error)
 }
 
 type customerRepository struct {
@@ -30,6 +33,27 @@ func (c *customerRepository) Insert(customer *model.Customer) error {
 
 	return nil
 }
+
+//tambain get sum dan get count
+func (c *customerRepository) GetCount() (int, error) {
+	var customerCount int
+
+	if err := c.db.Get(&customerCount, utils.SELECT_COUNT_CUSTOMER); err != nil {
+		return customerCount, err
+	}
+	return customerCount, nil
+}
+
+func (c *customerRepository) GetSum() (int, error) {
+	var customerBalance int
+
+	if err := c.db.Get(&customerBalance, utils.SELECT_SUM_CUSTOMER); err != nil {
+		return customerBalance, err
+	}
+	return customerBalance, nil
+}
+
+//tambain update delete,update
 
 func (c *customerRepository) Update(customer *model.Customer) error {
 	_, err := c.db.NamedExec(utils.UPDATE_CUSTOMER, customer)
