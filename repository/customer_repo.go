@@ -70,11 +70,28 @@ func (c *customerRepository) GetAll(page int, totalRow int) ([]model.Customer, e
 }
 
 func (c *customerRepository) GetById(id string) (model.Customer, error) {
-	panic("implement me")
+	// panic("implement me")
+
+	customer := []model.Customer{}
+
+	if err := c.db.Select(&customer, utils.SELECT_CUSTOMER_BY_ID, id); err != nil {
+
+		return customer[0], err
+
+	}
+
+	return customer[0], nil
 }
 
 func (c *customerRepository) GetByName(name string) ([]model.Customer, error) {
-	panic("implement me")
+	// panic("implement me")
+
+	customer := []model.Customer{}
+
+	if err := c.db.Select(&customer, utils.SELECT_CUSTOMER_BY_NAME, "%"+name+"%"); err != nil {
+		return nil, err
+	}
+	return customer, nil
 }
 
 func NewCustomerRepository(db *sqlx.DB) CustomerRepository {

@@ -41,11 +41,14 @@ func (c *customerUseCase) GetAll(page int, totalRow int) ([]model.Customer, erro
 }
 
 func (c *customerUseCase) GetById(id string) (model.Customer, error) {
-	panic("impelent me")
+	// panic("impelent me")
+
+	return c.repo.GetById(id)
 }
 
 func (c *customerUseCase) GetByName(name string) ([]model.Customer, error) {
-	panic("impelent me")
+	// panic("impelent me")
+	return c.repo.GetByName(name)
 }
 
 func NewCustomerUseCase(repo repository.CustomerRepository) CustomerUseCase {

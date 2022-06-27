@@ -22,7 +22,7 @@ const (
 
 	SELECT_CUSTOMER_BY_ID = `select id,name,address,phone,email,saldo from customer where id=$1`
 
-	SELECT_CUSTOMER_BY_NAME = `select id, name, address, phone, emailk, saldo from customer where name ilike $1`
+	SELECT_CUSTOMER_BY_NAME = `select id, name, address, phone, email, saldo from customer where name ilike $1`
 
 	SELECT_ALL_CUSTOMER = `select id, name, address, phone, email, saldo from customer order by created_at asc limit $1 offset $2`
 
