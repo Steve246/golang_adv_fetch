@@ -80,4 +80,32 @@ func main() {
 	//Panggil Get
 
 	sample.CustomerRun(db)
+
+	//tambain transaction
+
+	tx := db.MustBegin()
+	cstId := 10001
+	cstId2 := 10002
+	// tx.MustExec(`insert into customer (id, name, saldo) values ($1, $2, $3)`, cstId, "Bulan", 5000)
+
+	// tx.MustExec(`insert into customer (id, name, saldo) values ($1, $2, $3)`, cstId2, "Bintang", 5000)
+
+	rslt := tx.MustExec(`update customer set saldo=(saldo+200) where id=$1`, cstId)
+
+	r, _ := rslt.RowsAffected()
+
+	if r == 0 {
+		tx.Rollback()
+	}
+
+	rslt2 := tx.MustExec(`update customer set saldo=(saldo-200) where id=$1`, cstId2)
+
+	r2, _ := rslt2.RowsAffected()
+
+	if r2 == 0 {
+		tx.Rollback()
+	}
+
+	tx.Commit()
+
 }
