@@ -84,4 +84,13 @@ func CustomerRun(db *sqlx.DB) {
 
 	fmt.Println(customers)
 
+	//get kota - total
+
+	// var customersCount []dto.CustomerCount
+	// customersCount, _ = cstUse.GetKotaTotalByAddress()
+
+	// for _, row := range customersCount {
+	// 	fmt.Println(row)
+	// }
+
 }

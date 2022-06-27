@@ -18,21 +18,24 @@ type CustomerRepository interface {
 
 	GetCount() (int, error)
 	GetSum() (int, error)
+
+	// GetKotaTotalByAddress() (dto.CustomerAddress, error)
 }
 
 type customerRepository struct {
 	db *sqlx.DB
 }
 
-func (c *customerRepository) Insert(customer *model.Customer) error {
-	_, err := c.db.NamedExec(utils.INSERT_CUSTOMER, customer)
-	err = utils.IsError(err)
-	if err != nil {
-		return err
-	}
+//tambain kota - total
 
-	return nil
-}
+// func (c *customerRepository) GetKotaTotalByAddress(dto.CustomerAddress, error) error {
+// 	var customerAddressCount []dto.CustomerAddress
+
+// 	if err := c.db.Select(&customerAddressCount, utils.SELECT_KOTA_TOTAL); err != nil {
+// 		return nil, err
+// 	}
+// 	return customerAddressCount, nil
+// }
 
 //tambain get sum dan get count
 func (c *customerRepository) GetCount() (int, error) {
@@ -54,6 +57,16 @@ func (c *customerRepository) GetSum() (int, error) {
 }
 
 //tambain update delete,update
+
+func (c *customerRepository) Insert(customer *model.Customer) error {
+	_, err := c.db.NamedExec(utils.INSERT_CUSTOMER, customer)
+	err = utils.IsError(err)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func (c *customerRepository) Update(customer *model.Customer) error {
 	_, err := c.db.NamedExec(utils.UPDATE_CUSTOMER, customer)

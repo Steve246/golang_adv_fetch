@@ -43,4 +43,11 @@ const (
 	UPDATE_SHOP = `update shop set name=:name, no_siup=:no_siup, address=:address, phone=:phone where id=:id`
 
 	DELETE_SHOP_PS_HD = `delete from shop where id=$1`
+
+	//case bisnis --> hitung per total kota
+	//jakarta 2
+	//bandung 3
+
+	SELECT_KOTA_TOTAL      = `select address, count(id) from customer group by address`
+	SELECT_BANYAK_CUSTOMER = `select is_status,count(id) as total from customer group by is_status`
 )

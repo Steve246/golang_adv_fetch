@@ -11,3 +11,13 @@ type Customer struct {
 	Balance  int `db:"saldo"`
 	IsStatus int `db:"is_status"`
 }
+
+// type CustomerCount struct {
+// 	IsStatus int `db:"is_status"`
+// 	Total    int
+// }
+
+// type CustomerAddress struct {
+// 	Address string
+// 	Total   int
+// }

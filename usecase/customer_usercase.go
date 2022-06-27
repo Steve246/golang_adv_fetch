@@ -16,11 +16,20 @@ type CustomerUseCase interface {
 
 	GetTotalCustomerActive() (int, error) //count
 	GetTotalBalanceActive() (int, error)  //sum
+
+	// GetKotaTotalByAddress() (dto.CustomerAddress, error)
 }
 
 type customerUseCase struct {
 	repo repository.CustomerRepository
 }
+
+//tambain get kota total
+
+// func (c *customerUseCase) GetKotaTotalByAddress() (dto.CustomerAddress, error) {
+// 	return c.repo.GetKotaTotalByAddress()
+
+// }
 
 //tambain get count dan get sum
 
