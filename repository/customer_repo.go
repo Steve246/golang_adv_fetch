@@ -72,15 +72,12 @@ func (c *customerRepository) GetAll(page int, totalRow int) ([]model.Customer, e
 func (c *customerRepository) GetById(id string) (model.Customer, error) {
 	// panic("implement me")
 
-	customer := []model.Customer{}
+	customer := model.Customer{}
 
-	if err := c.db.Select(&customer, utils.SELECT_CUSTOMER_BY_ID, id); err != nil {
-
-		return customer[0], err
-
+	if err := c.db.Get(&customer, utils.SELECT_CUSTOMER_BY_ID, id); err != nil {
+		return customer, err
 	}
-
-	return customer[0], nil
+	return customer, nil
 }
 
 func (c *customerRepository) GetByName(name string) ([]model.Customer, error) {
